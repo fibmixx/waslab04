@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i[ show edit update destroy ]
+  before_action :set_tweet, only: %i[ show edit update destroy like ]
 
   def current_user
     @current_user ||= User.find_by(id: session[:current_user_id]) if session[:current_user_id]
@@ -53,6 +53,18 @@ class TweetsController < ApplicationController
       @tweet.destroy!
       redirect_to tweets_path, notice: "Tweet was successfully destroyed.", status: :see_other
     end
+  end
+
+  # POST /tweets/1/like
+  def like
+    session[:liked_ids] ||= []
+
+    unless session[:liked_ids].include?(@tweet.id)
+      @tweet.increment!(:likes)
+      session[:liked_ids] << @tweet.id
+    end
+
+    redirect_to root_path, status: :see_other
   end
 
   private

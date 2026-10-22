@@ -1,6 +1,6 @@
 <div class="wotitem" id="<%= dom_id tweet %>">
   <div class="likes">
-    <span class="numlikes"><%= tweet.likes %></span>
+    <span class="numlikes" id="showLikes_<%= tweet.id %>"><%= tweet.likes %></span>
     <span class="smallfont">likes</span>
     <div class="button_to">
       <%= button_to "like", like_tweet_path(tweet), method: :put %>

@@ -1,20 +1,17 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Wall of Tweets · RoR Edition" %>
 
-<% content_for :title, "Tweets" %>
+<div class="container">
+  <h1 class="wottitle">Wall of Tweets · RoR Edition</h1>
+  <div class="subtitle">A minimal wall for quick thoughts. Clean and focused.</div>
 
-<h1>Tweets</h1>
+  <%= render "form", tweet: Tweet.new %>
 
-<div id="tweets">
-  <% @tweets.each do |tweet| %>
-    <%= render tweet %>
-    <p>
-    <%= button_to 'Like this tweet', like_tweet_path(tweet), method: :put %>
-    <p>
-    <p>
-      <%= link_to "Show this tweet", tweet %>
-    </p>
-    <hr>
-  <% end %>
+  <div id="tweets">
+    <% @tweets.group_by { |tweet| tweet.created_at.to_date }.each do |date, tweets| %>
+      <div class="date-sep"><%= date.strftime("%A, %B %-d, %Y") %></div>
+      <% tweets.each do |tweet| %>
+        <%= render tweet %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New tweet", new_tweet_path %>

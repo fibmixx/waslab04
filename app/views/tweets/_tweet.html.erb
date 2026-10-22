@@ -1,22 +1,13 @@
-<div id="<%= dom_id tweet %>">
-  <p>
-    <strong>Author:</strong>
-    <%= tweet.author %>
-  </p>
-
-  <p>
-    <strong>Content:</strong>
-    <%= tweet.content %>
-  </p>
-
-  <p>
-    <strong>Likes:</strong>
-    <%= tweet.likes %>
-  </p>
-
-  <p>
-    <strong>Created at:</strong>
-    <%= tweet.created_at.strftime("%A, %F %H:%M") %>
-  </p>
-
+<div class="wotitem" id="<%= dom_id tweet %>">
+  <div class="likes">
+    <span class="numlikes" id="showLikes_<%= tweet.id %>"><%= tweet.likes %></span>
+    <span class="smallfont">likes</span>
+    <div class="button_to">
+      <%= button_to "like", like_tweet_path(tweet), method: :put %>
+    </div>
+  </div>
+  <div class="item">
+    <h4><em><%= tweet.author %></em> · <%= tweet.created_at.strftime("%H:%M") %></h4>
+    <p><%= tweet.content %></p>
+  </div>
 </div>

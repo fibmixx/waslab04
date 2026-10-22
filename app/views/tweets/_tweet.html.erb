@@ -3,7 +3,14 @@
     <span class="numlikes" id="showLikes_<%= tweet.id %>"><%= tweet.likes %></span>
     <span class="smallfont">likes</span>
     <div class="button_to">
-      <%= button_to "like", like_tweet_path(tweet), method: :put %>
+      <% authored = Array(session[:authored_ids]).map(&:to_i).include?(tweet.id) %>
+      <% if authored %>
+        <%= button_to "destroy", tweet, method: :delete, class: "btn-danger" %>
+      <% else %>
+        <% liked = Array(session[:liked_ids]).map(&:to_i).include?(tweet.id) %>
+        <%= button_to (liked ? "liked" : "like"), like_tweet_path(tweet), method: :put,
+              class: ("btn-disabled" if liked), disabled: liked %>
+      <% end %>
     </div>
   </div>
   <div class="item">

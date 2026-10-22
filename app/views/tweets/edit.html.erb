@@ -1,12 +1,20 @@
 <% content_for :title, "Editing tweet" %>
 
-<h1>Editing tweet</h1>
+<div class="container">
+  <h1 class="wottitle">Wall of Tweets · RoR Edition</h1>
+  <div class="subtitle">Edit tweet</div>
 
-<%= render "form", tweet: @tweet %>
+  <% if notice.present? %>
+    <div class="flash"><%= notice %></div>
+  <% end %>
+  <% if alert.present? %>
+    <div class="flash flash--alert"><%= alert %></div>
+  <% end %>
 
-<br>
+  <%= render "form", tweet: @tweet %>
 
-<div>
-  <%= link_to "Show this tweet", @tweet %> |
-  <%= link_to "Back to tweets", tweets_path %>
+  <div class="page-actions">
+    <%= link_to "Show this tweet", @tweet %>
+    <%= link_to "Back to tweets", root_path %>
+  </div>
 </div>

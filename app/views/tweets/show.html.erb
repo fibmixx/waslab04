@@ -1,11 +1,20 @@
-<p style="color: green"><%= notice %></p>
-<p style="color: red"><%= alert %></p>
+<% content_for :title, "Tweet" %>
 
-<%= render @tweet %>
+<div class="container">
+  <h1 class="wottitle">Wall of Tweets · RoR Edition</h1>
+  <div class="subtitle">Tweet detail</div>
 
-<div>
-  <%= link_to "Edit this tweet", edit_tweet_path(@tweet) %> |
-  <%= link_to "Back to tweets", tweets_path %>
+  <% if notice.present? %>
+    <div class="flash"><%= notice %></div>
+  <% end %>
+  <% if alert.present? %>
+    <div class="flash flash--alert"><%= alert %></div>
+  <% end %>
 
-  <%= button_to "Destroy this tweet", @tweet, method: :delete %>
+  <%= render @tweet %>
+
+  <div class="page-actions">
+    <%= link_to "Edit this tweet", edit_tweet_path(@tweet) %>
+    <%= link_to "Back to tweets", root_path %>
+  </div>
 </div>

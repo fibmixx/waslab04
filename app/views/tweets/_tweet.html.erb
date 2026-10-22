@@ -3,7 +3,9 @@
     <span class="numlikes" id="showLikes_<%= tweet.id %>"><%= tweet.likes %></span>
     <span class="smallfont">likes</span>
     <div class="button_to">
-      <%= button_to "like", like_tweet_path(tweet), method: :put %>
+      <% liked = session.fetch(:liked_ids, []).include?(tweet.id) %>
+      <%= button_to "like", like_tweet_path(tweet), method: :put,
+            class: ("btn-disabled" if liked), disabled: liked %>
     </div>
   </div>
   <div class="item">

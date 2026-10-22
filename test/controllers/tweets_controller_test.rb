@@ -28,6 +28,21 @@ class TweetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should like a tweet once per session" do
+    assert_difference("@tweet.reload.likes") do
+      put like_tweet_url(@tweet)
+    end
+
+    assert_redirected_to root_url
+
+    assert_no_difference("@tweet.reload.likes") do
+      put like_tweet_url(@tweet)
+    end
+
+    get tweets_url
+    assert_select "#tweet_#{@tweet.id} button.btn-disabled[disabled]"
+  end
+
   test "should get edit" do
     get edit_tweet_url(@tweet)
     assert_response :success

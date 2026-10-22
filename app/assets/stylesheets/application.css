@@ -165,7 +165,7 @@ input[type="submit"]{ padding: 6px 16px; font-size: 13px; }
 
 /* Disabled (already liked) */
 .btn-disabled, button:disabled{
-  background: transparent;
+  background: var(--surface);
   border-color: var(--line);
   color: var(--muted);
   cursor: default;

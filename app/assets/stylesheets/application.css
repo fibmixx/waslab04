@@ -1,4 +1,18 @@
-:root {
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+ /* ==========================================================
+   Wall of Tweets — compact, minimal, elegant (light only)
+   ========================================================== */
+:root{
   --bg: #fafaf8;
   --surface: #ffffff;
   --text: #1c1c1e;
@@ -15,25 +29,28 @@
   color-scheme: light;
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
   font-family: var(--sans);
   font-size: 14px;
   line-height: 1.5;
+  background: var(--bg);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
+/* ----- Layout ----- */
+.container{
   max-width: 780px;
   margin: 40px auto 64px;
   padding: 0 16px;
 }
 
-.wottitle {
+/* ----- Header ----- */
+.wottitle{
   margin: 0;
   font-family: var(--serif);
   font-size: 26px;
@@ -41,59 +58,75 @@ body {
   letter-spacing: -0.01em;
   line-height: 1.2;
 }
-.subtitle { margin-top: 4px; color: var(--muted); font-size: 13px; }
+.subtitle{
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
 
-.flash {
+/* ----- Flash (notice / alert) ----- */
+.flash{
+  display: flex; gap: 8px; align-items: center;
   margin: 16px 0 0;
   padding: 6px 10px;
   border-left: 2px solid var(--success);
   background: color-mix(in srgb, var(--success) 6%, transparent);
-  color: var(--success);
   font-size: 13px;
 }
-.flash:empty { display: none; }
-.flash--alert {
+.flash:empty{ display: none; }
+.flash--alert{
   border-left-color: var(--danger);
   background: color-mix(in srgb, var(--danger) 6%, transparent);
-  color: var(--danger);
 }
+.flash .ok{ color: var(--success); }
+.flash .err{ color: var(--danger); }
 
-.walltweet {
+/* ----- Composer (form) ----- */
+.walltweet{
   margin: 20px 0 8px;
   padding: 12px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
-.form-grid { display: grid; gap: 8px; }
-.form-row { display: grid; gap: 3px; }
-label {
-  color: var(--muted);
-  font-size: 11px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+.form-grid{
+  display: grid;
+  gap: 8px;
 }
-input[type="text"], textarea {
+.form-row{ display: grid; gap: 3px; }
+label{
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+input[type="text"], textarea{
   width: 100%;
   padding: 7px 9px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
   background: var(--bg);
   color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
   font: inherit;
   outline: none;
+  transition: border-color .15s ease, background .15s ease;
 }
-input::placeholder, textarea::placeholder { color: #b5b3ae; }
-textarea { min-height: 56px; resize: vertical; }
-input[type="text"]:focus, textarea:focus {
+input::placeholder, textarea::placeholder{ color: #b5b3ae; }
+textarea{ resize: vertical; min-height: 56px; }
+input[type="text"]:focus, textarea:focus{
   background: var(--surface);
   border-color: var(--line-strong);
 }
-.actions { display: flex; justify-content: flex-end; }
 
-button, input[type="submit"] {
-  min-width: 64px;
+.actions{
+  display: flex; justify-content: flex-end;
+}
+
+/* ----- Buttons (Rails `button_to` and `form.submit`) ----- */
+button, input[type="submit"]{
+  appearance: none;
   padding: 4px 12px;
+  min-width: 64px;
   border: 1px solid var(--accent);
   border-radius: 6px;
   background: var(--accent);
@@ -101,69 +134,126 @@ button, input[type="submit"] {
   font: inherit;
   font-size: 12px;
   font-weight: 500;
+  letter-spacing: .02em;
+  text-align: center;
   cursor: pointer;
+  transition: background .15s ease, color .15s ease, border-color .15s ease, opacity .15s ease;
 }
-button:hover, input[type="submit"]:hover { opacity: .85; }
-input[type="submit"] { padding: 6px 16px; font-size: 13px; }
-.button_to { display: inline-block; margin: 0; }
-.button_to form { margin: 0; }
+button:hover, input[type="submit"]:hover{ opacity: .85; }
+button:active, input[type="submit"]:active{ transform: translateY(1px); }
+input[type="submit"]{ padding: 6px 16px; font-size: 13px; }
 
-.date-sep {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* Secondary */
+.btn-secondary{
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+/* Danger (destroy): quiet until hovered */
+.btn-danger{
+  background: transparent;
+  border-color: var(--line);
+  color: var(--danger);
+}
+.btn-danger:hover{
+  opacity: 1;
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+/* Disabled (already liked) */
+.btn-disabled, button:disabled{
+  background: transparent;
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: default;
+  opacity: 1;
+}
+.btn-disabled:hover, button:disabled:hover{ opacity: 1; }
+.btn-disabled:active, button:disabled:active{ transform: none; }
+
+/* Rails `button_to` renders a form; keep it inline */
+.button_to{ display: inline-block; margin: 0; }
+.button_to form{ margin: 0; }
+
+/* ----- Date separator ----- */
+.date-sep{
+  display: flex; align-items: center; gap: 10px;
   margin: 28px 0 0;
   padding-bottom: 6px;
   color: var(--muted);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: .08em;
   text-transform: uppercase;
+  letter-spacing: .08em;
 }
-.date-sep::after {
+.date-sep::after{
+  content: "";
   flex: 1;
   height: 1px;
   background: var(--line);
-  content: "";
 }
 
-.wotitem {
+/* ----- Tweet item: flat list, hairline separators ----- */
+.wotitem{
   display: grid;
   grid-template-columns: 72px 1fr;
   gap: 14px;
   padding: 12px 0;
   border-bottom: 1px solid var(--line);
 }
-.wotitem:last-child { border-bottom: 0; }
-.likes {
+.wotitem:last-child{ border-bottom: 0; }
+
+.likes{
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
-  align-items: baseline;
   justify-content: center;
+  align-items: baseline;
+  align-content: flex-start;
   column-gap: 4px;
 }
-.numlikes {
+.numlikes{
   font-family: var(--serif);
   font-size: 20px;
   font-weight: 500;
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
 }
-.smallfont {
-  color: var(--muted);
+.smallfont{
   font-size: 10px;
-  letter-spacing: .06em;
+  color: var(--muted);
   text-transform: uppercase;
+  letter-spacing: .06em;
 }
-.likes > .button_to { flex: 0 0 100%; margin-top: 6px; text-align: center; }
-.likes button { min-width: 56px; padding: 2px 8px; font-size: 11px; }
-.item { min-width: 0; }
-.item h4 { margin: 0 0 2px; color: var(--muted); font-size: 12px; font-weight: 400; }
-.item h4 em { color: var(--text); font-style: normal; font-weight: 600; }
-.item p { margin: 0; font-size: 15px; line-height: 1.55; overflow-wrap: anywhere; white-space: pre-wrap; }
+.likes > .button_to{ flex: 0 0 100%; margin-top: 6px; text-align: center; }
+.likes button{ min-width: 56px; padding: 2px 8px; font-size: 11px; }
 
-@media (max-width: 480px) {
-  .container { margin-top: 24px; }
-  .wotitem { grid-template-columns: 64px 1fr; gap: 10px; }
+.item{ min-width: 0; }
+.item h4{
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.item h4 em{
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text);
+}
+.item p{
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre-wrap;       /* keep newlines from textarea */
+  overflow-wrap: anywhere;     /* break long unbroken strings */
+}
+.item a{ color: var(--text); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
+.item a:hover{ text-decoration-color: currentColor; }
+
+/* ----- Small screens ----- */
+@media (max-width: 480px){
+  .container{ margin-top: 24px; }
+  .wotitem{ grid-template-columns: 64px 1fr; gap: 10px; }
 }

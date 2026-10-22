@@ -165,7 +165,7 @@ input[type="submit"]{ padding: 6px 16px; font-size: 13px; }
 
 /* Disabled (already liked) */
 .btn-disabled, button:disabled{
-  background: var(--surface);
+  background: transparent;
   border-color: var(--line);
   color: var(--muted);
   cursor: default;
@@ -249,8 +249,16 @@ input[type="submit"]{ padding: 6px 16px; font-size: 13px; }
   white-space: pre-wrap;       /* keep newlines from textarea */
   overflow-wrap: anywhere;     /* break long unbroken strings */
 }
-.item a{ color: var(--text); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
-.item a:hover{ text-decoration-color: currentColor; }
+a{ color: var(--text); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
+a:hover{ text-decoration-color: currentColor; }
+
+.page-actions{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
 
 /* ----- Small screens ----- */
 @media (max-width: 480px){

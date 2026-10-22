@@ -3,7 +3,9 @@
 one:
   author: MyString
   content: MyText
+  likes: 0
 
 two:
   author: MyString
   content: MyText
+  likes: 0

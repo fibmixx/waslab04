@@ -4,11 +4,18 @@
   <h1 class="wottitle">Wall of Tweets · RoR Edition</h1>
   <div class="subtitle">A minimal wall for quick thoughts. Clean and focused.</div>
 
-  <%= render "form", tweet: Tweet.new %>
+  <% if notice.present? %>
+    <div class="flash"><%= notice %></div>
+  <% end %>
+  <% if alert.present? %>
+    <div class="flash flash--alert"><%= alert %></div>
+  <% end %>
+
+  <%= render "form", tweet: (@tweet || Tweet.new) %>
 
   <div id="tweets">
     <% @tweets.group_by { |tweet| tweet.created_at.to_date }.each do |date, tweets| %>
-      <div class="date-sep"><%= date.strftime("%A, %B %-d, %Y") %></div>
+      <div class="date-sep"><%= date.strftime("%A, %B #{date.day}, %Y") %></div>
       <% tweets.each do |tweet| %>
         <%= render tweet %>
       <% end %>

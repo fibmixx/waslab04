@@ -1,27 +1,29 @@
-<%= form_with(model: tweet) do |form| %>
-  <% if tweet.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+<div class="walltweet">
+  <%= form_with(model: tweet) do |form| %>
+    <% if tweet.errors.any? %>
+      <div class="flash flash--alert">
+        <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
 
-      <ul>
-        <% tweet.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% tweet.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-grid">
+      <div class="form-row">
+        <%= form.label :author, "Your name:" %>
+        <%= form.text_field :author, placeholder: "Serious Contributor" %>
+      </div>
+      <div class="form-row">
+        <%= form.label :content, "Your tweet:" %>
+        <%= form.textarea :content, placeholder: "Share something concise and useful…" %>
+      </div>
+      <div class="actions">
+        <%= form.submit "Tweet!" %>
+      </div>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :author, style: "display: block" %>
-    <%= form.text_field :author %>
   </div>
-
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.textarea :content %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
